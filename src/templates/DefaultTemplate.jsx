@@ -1,123 +1,72 @@
 import mockup from '../assets/mockup.png'
-import { PhoneIcon, MailIcon, LocationIcon, InstagramIcon, FacebookIcon, TwitterIcon } from '../Icons'
+import ContactList from '../components/ContactList'
+import Copyright from '../components/Copyright'
+import Logo from '../components/Logo'
+import SocialLinks from '../components/SocialLinks'
 
-const DefaultTemplate = ({ 
-  title, 
-  srcLogo,
-  showLogo, 
-  website, 
-  email, 
-  address, 
-  phone, 
-  description, 
-  themeColor, 
-  instagramUrl, 
-  twitterUrl,
-  facebookUrl 
+const DefaultTemplate = ({
+  title,
+  siteName,
+  website,
+  description,
+  email,
+  phone,
+  address,
+  logoUrl,
+  socials,
 }) => (
-  <main>
-    <div className="relative overflow-hidden">
-      <div className="bg-white pt-10 pb-14 sm:pt-16 lg:overflow-hidden lg:pt-24 lg:pb-24">
-        <div className="mx-auto max-w-5xl lg:px-8">
-          <div className="lg:grid lg:grid-cols-2 lg:gap-8">
-            
-            <div className="mx-auto max-w-md px-4 text-center sm:max-w-2xl sm:px-6 lg:flex lg:items-center lg:px-0 lg:text-left">
-              <div className="lg:py-24">
-                {showLogo === 'true' && <img className='block lg:hidden mx-auto h-[200px]' src={srcLogo} alt={website} />}
+  <div className="flex min-h-screen flex-col bg-white">
+    <main className="mx-auto w-full max-w-5xl flex-1 px-4 py-10 sm:px-6 sm:py-16 lg:grid lg:grid-cols-2 lg:items-center lg:gap-8 lg:px-8 lg:py-24">
+      <div className="mx-auto max-w-md text-center sm:max-w-2xl lg:mx-0 lg:text-left">
+        <Logo
+          logoUrl={logoUrl}
+          siteName={siteName}
+          className="mx-auto mb-8 h-32 w-auto lg:hidden"
+        />
 
-                <h1 className="mt-4 text-4xl font-bold tracking-tight text-black sm:mt-5 sm:text-6xl lg:mt-6 xl:text-6xl">
-                  <span className="block" style={{color: themeColor}}>{ title } </span>
-                  <span className="block text-black xl:text-4xl">{ website }</span>
-                </h1>
-                <p className="mt-3 text-base text-gray-400 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
-                  { description }
-                </p>
+        <h1 className="text-4xl font-bold text-brand sm:text-6xl">{title}</h1>
+        <p className="mt-2 text-2xl font-medium text-gray-900 sm:text-3xl">{website}</p>
+        <p className="mt-5 text-lg text-gray-600 text-pretty sm:text-xl lg:text-lg xl:text-xl">
+          {description}
+        </p>
 
-                <div className="block md:gap-6 md:justify-center md:flex lg:block mt-8 sm:mt-10 md:bg-white">
-                  { email &&
-                    <div className='mb-6 flex items-center justify-start gap-3 text-start'>
-                      <figure className='bg-gray-100 shadow-sm p-2 rounded-full'>
-                        <MailIcon className="w-10 h-10" style={{color: themeColor}} />
-                      </figure>
-                      <article>
-                        <p className="text-2xl" style={{color: themeColor}}>Correo electrónico</p>
-                        <p className="text-lg">
-                          <a className="hover:underline" href={`mailto:${email}`}>{ email }</a>
-                        </p>
-                      </article>
-                    </div>
-                  }
+        <ContactList
+          email={email}
+          phone={phone}
+          address={address}
+          showLabels
+          className="mx-auto mt-10 flex w-fit flex-col gap-5 sm:w-auto sm:flex-row sm:flex-wrap sm:justify-center lg:mx-0 lg:flex-col lg:justify-start"
+          itemClassName="flex items-center gap-3 text-left"
+          iconClassName="size-14 shrink-0 rounded-full bg-brand/10 p-3.5 text-brand"
+          labelClassName="text-sm text-gray-500"
+        />
+      </div>
 
-                  { phone &&
-                    <div className='mb-6 flex items-center justify-start gap-3 text-start'>
-                      <figure className='bg-gray-100 shadow-sm p-2 rounded-full'>
-                        <PhoneIcon className="w-10 h-10" style={{color: themeColor}} />
-                      </figure>
-                      <article>
-                        <p className="text-2xl" style={{color: themeColor}}>Teléfono</p>
-                        <p className="text-lg">
-                          <a className="hover:underline" href={`tel:${phone}`}>{ phone }</a>
-                        </p>
-                      </article>
-                    </div>
-                  }
-
-                  { address &&
-                    <div className='mb-6 flex items-center justify-start gap-3 text-start'>
-                      <figure className='bg-gray-100 shadow-sm p-2 rounded-full'>
-                        <LocationIcon className="w-10 h-10" style={{color: themeColor}} />
-                      </figure>
-                      <article>
-                        <p className="text-2xl" style={{color: themeColor}}>Dirección</p>
-                        <p className="text-lg">
-                          { address }
-                        </p>
-                      </article>
-                    </div>
-                  }
-                  
-                </div>
-              </div>
-            </div>
-
-            <div className="mt-12 hidden lg:block relative">
-              {showLogo === 'true' && <img className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full bg-white bg-opacity-75 p-16" src={srcLogo} alt={website} />}
-              <img src={mockup} alt="" />
+      <div className="relative hidden lg:block">
+        <img src={mockup} alt="" className="w-full" />
+        {logoUrl && (
+          <div className="absolute inset-0 grid place-items-center p-12">
+            <div className="rounded-2xl bg-white p-8 shadow-xl">
+              <Logo
+                logoUrl={logoUrl}
+                siteName={siteName}
+                className="max-h-40 w-auto object-contain"
+              />
             </div>
           </div>
-        </div>
+        )}
       </div>
-    </div>
+    </main>
 
-    <footer className="bg-white">
-      <div className="mx-auto max-w-7xl overflow-hidden py-12 px-4 sm:px-6 lg:px-8">
-        <div className="mt-8 flex justify-center space-x-6">
-        { instagramUrl && 
-            <a href={instagramUrl} target="_blank" className="text-gray-400 hover:text-gray-500">
-              <span className="sr-only">Instagram</span>
-              <InstagramIcon className="w-6 h-6 text-gray-800" />
-            </a>
-        }
-
-        { facebookUrl && 
-            <a href={facebookUrl} target="_blank" className="text-gray-400 hover:text-gray-500">
-              <span className="sr-only">Facebook</span>
-              <FacebookIcon className="w-6 h-6 text-gray-800" />
-            </a>
-        }
-
-        { twitterUrl && 
-            <a href={twitterUrl} target="_blank" className="text-gray-400 hover:text-gray-500">
-              <span className="sr-only">Twitter</span>
-              <TwitterIcon className="w-6 h-6 text-gray-800" />
-            </a>
-        }
-        </div>
-
-        <p className="mt-8 text-center text-base text-gray-400">© {new Date().getFullYear()} { website }. Todos los derechos reservados.</p>
-      </div>
+    <footer className="px-4 pb-12 pt-4 sm:px-6 lg:px-8">
+      <SocialLinks
+        socials={socials}
+        className="flex justify-center gap-2"
+        itemClassName="rounded-full text-gray-800 hover:bg-gray-100"
+      />
+      <Copyright name={website} className="mt-6 text-center text-sm text-gray-500" />
     </footer>
-  </main>
-);
+  </div>
+)
 
-export default DefaultTemplate;
+export default DefaultTemplate

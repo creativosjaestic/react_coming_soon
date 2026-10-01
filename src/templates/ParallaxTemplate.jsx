@@ -1,112 +1,67 @@
 import bg from '../assets/bg.avif'
-import {
-  LocationIcon,
-  InstagramIcon,
-  FacebookIcon,
-  TwitterIcon,
-} from '../Icons'
+import ContactList from '../components/ContactList'
+import Logo from '../components/Logo'
+import SocialLinks from '../components/SocialLinks'
 
 const ParallaxTemplate = ({
   title,
-  srcLogo,
-  showLogo = true,
-  email,
-  address,
-  phone,
+  siteName,
   description,
-  themeColor,
-  instagramUrl,
-  facebookUrl,
-  twitterUrl,
+  email,
+  phone,
+  address,
+  logoUrl,
+  socials,
 }) => (
-  <main
-    className="min-h-screen w-full bg-cover bg-center relative text-white bg-blend-overlay bg-black/40"
-    style={{
-      backgroundImage: `url(${bg})`,
-    }}
+  <div
+    className="min-h-screen bg-cover bg-center text-white"
+    style={{ backgroundImage: `url(${bg})` }}
   >
-    <div className="container mx-auto px-4 py-6">
-      {/* Header */}
-      <header className="flex justify-between items-center">
-        <div>
-          {showLogo &&
-            (srcLogo ? (
-              <img src={srcLogo} alt="Logo" className="h-8" />
-            ) : (
-              <div className="text-xl font-bold">Logo</div>
-            ))}
-        </div>
-        <div className="flex items-center gap-6">
-          {phone && (
-            <div className="flex items-center gap-2">
-              <span>{phone}</span>
-            </div>
-          )}
-          {email && (
-            <div className="flex items-center gap-2">
-              <span>|</span>
-              <span>{email}</span>
-            </div>
-          )}
-        </div>
-      </header>
-      {/* Main content */}
-      <div className="mt-40 max-w-xl">
-        <h1
-          className="text-5xl md:text-6xl font-bold mb-4"
-          style={{
-            color: themeColor === 'default' ? '#ffffff' : themeColor,
-          }}
-        >
-          {title}
-        </h1>
-        <p className="text-lg mb-12 opacity-90">{description}</p>
-        {/* Social links */}
-        {(instagramUrl || facebookUrl || twitterUrl) && (
-          <div className="mt-20">
-            <p className="mb-4">Stay connected</p>
-            <div className="flex gap-3">
-              {facebookUrl && (
-                <a
-                  href={facebookUrl}
-                  className="bg-white/80 rounded-xl p-2 hover:bg-opacity-90 transition"
-                  aria-label="Facebook"
-                >
-                  <FacebookIcon className="w-6 h-6 text-gray-800" />
-                </a>
-              )}
-              {twitterUrl && (
-                <a
-                  href={twitterUrl}
-                  className="bg-white/80 rounded-xl p-2 hover:bg-opacity-90 transition"
-                  aria-label="Twitter"
-                >
-                  <TwitterIcon className="w-6 h-6 text-gray-800" />
-                </a>
-              )}
-              {instagramUrl && (
-                <a
-                  href={instagramUrl}
-                  className="bg-white/80 rounded-xl p-2 hover:bg-opacity-90 transition"
-                  aria-label="Instagram"
-                >
-                  <InstagramIcon className="w-6 h-6 text-gray-800" />
-                </a>
-              )}
-            </div>
-          </div>
+    <div className="flex min-h-screen flex-col bg-linear-to-t from-black/80 via-black/50 to-black/40">
+      <header className="container mx-auto flex flex-wrap items-center justify-between gap-4 px-4 py-6">
+        {logoUrl ? (
+          <Logo logoUrl={logoUrl} siteName={siteName} className="h-12 w-auto rounded-md" />
+        ) : (
+          <p className="font-display text-xl font-bold">{siteName}</p>
         )}
-      </div>
-      {/* Footer with address if provided */}
-      {address && (
-        <footer className="absolute bottom-6 left-4">
-          <div className="flex items-center gap-2">
-            <LocationIcon className="w-6 h-6 text-white" />
-            <span>{address}</span>
-          </div>
-        </footer>
-      )}
+        <ContactList
+          email={email}
+          phone={phone}
+          className="flex flex-wrap items-center gap-x-6 gap-y-1"
+          itemClassName="flex items-center gap-2"
+          iconClassName="size-4 shrink-0"
+        />
+      </header>
+
+      <main className="container mx-auto flex-1 px-4 py-16 sm:py-24">
+        <div className="max-w-xl">
+          <h1 className="text-5xl font-bold md:text-6xl">{title}</h1>
+          <span className="mt-5 block h-1 w-16 rounded-full bg-brand" aria-hidden="true" />
+          <p className="mt-6 text-lg text-white/90 text-pretty">{description}</p>
+
+          {socials.length > 0 && (
+            <div className="mt-12">
+              <p className="mb-3">Síguenos</p>
+              <SocialLinks
+                socials={socials}
+                className="flex gap-3"
+                itemClassName="rounded-xl bg-white/85 text-gray-800 hover:bg-white"
+              />
+            </div>
+          )}
+        </div>
+      </main>
+
+      <footer className="container mx-auto px-4 py-6">
+        <ContactList
+          address={address}
+          className="flex"
+          itemClassName="flex items-center gap-2"
+          iconClassName="size-5 shrink-0"
+        />
+      </footer>
     </div>
-  </main>
+  </div>
 )
+
 export default ParallaxTemplate

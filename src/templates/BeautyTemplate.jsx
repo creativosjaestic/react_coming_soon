@@ -1,86 +1,71 @@
-import { InstagramIcon, FacebookIcon, FireIcon, RocketIcon, ArrowRightIcon, FileUpload, MailIcon, TwitterIcon } from '../Icons'
-
+import { MailIcon } from '../Icons'
+import ContactList from '../components/ContactList'
+import Logo from '../components/Logo'
+import SocialLinks from '../components/SocialLinks'
 
 const BeautyTemplate = ({
   title,
-	siteName,
-  srcLogo,
-  showLogo = false,
-  email,
-	website,
+  siteName,
+  website,
   description,
-  themeColor,
-  instagramUrl,
-	twitterUrl,
-  facebookUrl,
+  email,
+  phone,
+  address,
+  logoUrl,
+  socials,
 }) => (
-  <div className="min-h-screen flex items-center justify-center p-4 bg-gray-100">
-    <div className="w-full max-w-4xl bg-white rounded-3xl shadow-lg overflow-hidden relative">
-      <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-[98%] h-4 bg-gray-200 rounded-b-3xl z-0"></div>
-      <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-[96%] h-4 bg-gray-300 rounded-b-3xl z-0"></div>
-      <div
-        className="relative z-10 flex flex-col min-h-[600px]"
-        style={{
-          background: `linear-gradient(to right, #f5f5f0 50%, ${themeColor} 50%)`,
-        }}
-      >
-        <div className="flex-1 flex flex-col items-center justify-center px-6 py-16 text-center">
-          {showLogo && srcLogo && (
-            <img src={srcLogo} alt="Logo" className="h-16 mb-8" />
+  <main className="grid min-h-screen place-items-center bg-gray-100 p-4">
+    <div className="grid w-full max-w-4xl overflow-hidden rounded-3xl bg-white shadow-lg md:min-h-[600px] md:grid-cols-2">
+      <div className="flex min-w-0 flex-col justify-between gap-12 bg-[#f5f5f0] p-8 md:p-12">
+        <div>
+          <p className="text-sm font-medium tracking-wide text-gray-600">{website}</p>
+          <h1 className="mt-6 text-4xl font-bold break-words lg:text-5xl">{title}</h1>
+          <p className="mt-2 font-display text-3xl font-semibold text-gray-900">{siteName}</p>
+          <p className="mt-6 max-w-md text-gray-700 text-pretty">{description}</p>
+
+          {email && (
+            <a
+              href={`mailto:${email}`}
+              className="mt-8 inline-flex items-center gap-2 rounded-full bg-black px-6 py-3 font-medium text-white transition-colors hover:bg-gray-800 motion-reduce:transition-none"
+            >
+              <MailIcon className="size-4" />
+              Escríbenos
+            </a>
           )}
-          <p className="uppercase tracking-widest text-sm font-medium mb-6">
-            {website}
-          </p>
-          <h1 className="text-5xl md:text-6xl font-bold mb-2 flex items-center">
-            {title} <ArrowRightIcon className="ml-2 h-8 w-8" />
-          </h1>
-          <div className="text-4xl md:text-5xl font-bold mb-8 flex items-center">
-            <RocketIcon className="mr-2 h-8 w-8" /> {siteName}{' '}
-            <FireIcon className="ml-2 h-8 w-8" />
-          </div>
-          <p className="max-w-md mb-8 text-gray-700">{description}</p>
-          <a href={`mailto:${email}`} className="bg-black text-white px-6 py-3 rounded-full flex items-center mb-4 hover:bg-gray-800 transition-colors">
-            <MailIcon className="mr-2 h-4 w-4" /> Notify me
-          </a>
         </div>
-        {/* Footer */}
-        <div className="px-6 py-4 flex justify-between items-center">
-          <div>
-            {email && (
-              <a href={`mailto:${email}`} className="text-sm hover:underline">
-                {email}
-              </a>
-            )}
+
+        <footer className="space-y-4">
+          <ContactList
+            email={email}
+            phone={phone}
+            address={address}
+            className="space-y-2 text-sm text-gray-700"
+            itemClassName="flex items-center gap-2"
+            iconClassName="size-4 shrink-0 text-brand"
+          />
+          <SocialLinks
+            socials={socials}
+            className="-ml-2.5 flex gap-1"
+            itemClassName="rounded-full text-gray-900 hover:bg-black/5"
+          />
+        </footer>
+      </div>
+
+      <div className="grid min-h-64 place-items-center bg-brand p-10">
+        {logoUrl ? (
+          <div className="rounded-2xl bg-white p-8 shadow-lg">
+            <Logo
+              logoUrl={logoUrl}
+              siteName={siteName}
+              className="max-h-40 w-auto object-contain"
+            />
           </div>
-          <div className="flex space-x-4">
-            {facebookUrl && (
-              <a
-                href={facebookUrl}
-                className="hover:opacity-70 transition-opacity"
-              >
-                <FacebookIcon className="h-5 w-5" />
-              </a>
-            )}
-            {instagramUrl && (
-              <a
-                href={instagramUrl}
-                className="hover:opacity-70 transition-opacity"
-              >
-                <InstagramIcon className="h-5 w-5" />
-              </a>
-            )}
-						{twitterUrl && (
-              <a
-                href={twitterUrl}
-                className="hover:opacity-70 transition-opacity"
-              >
-                <TwitterIcon className="h-5 w-5" />
-              </a>
-            )}
-          </div>
-        </div>
+        ) : (
+          <p className="font-display text-4xl font-bold text-white text-balance">{siteName}</p>
+        )}
       </div>
     </div>
-  </div>
+  </main>
 )
+
 export default BeautyTemplate

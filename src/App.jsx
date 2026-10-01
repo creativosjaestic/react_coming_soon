@@ -1,42 +1,14 @@
+import config from './config'
 import TEMPLATES from './templates'
 
 function App() {
-  const title = import.meta.env.VITE_APP_TITLE
-  const siteName = import.meta.env.VITE_APP_NAME
-  const showLogo = import.meta.env.VITE_APP_SHOW_LOGO
-  const srcLogo = import.meta.env.VITE_APP_URL_LOGO
-  const website = import.meta.env.VITE_APP_WEBSITE
-  const email = import.meta.env.VITE_APP_EMAIL
-  const address = import.meta.env.VITE_APP_ADDRESS
-  const phone = import.meta.env.VITE_APP_PHONE
-  const description = import.meta.env.VITE_APP_DESCRIPTION
-  const themeColor = import.meta.env.VITE_APP_COLOR
-  const instagramUrl = import.meta.env.VITE_APP_SOCIAL_INSTAGRAM
-  const facebookUrl = import.meta.env.VITE_APP_SOCIAL_FACEBOOK
-  const twitterUrl = import.meta.env.VITE_APP_SOCIAL_TWITTER
-  const template = import.meta.env.VITE_APP_TEMPLATE || 'default'
+  const Template = TEMPLATES[config.template] ?? TEMPLATES.default
 
-  const templateProps = {
-    title,
-    showLogo,
-    srcLogo,
-    website,
-    email,
-    address,
-    siteName,
-    phone,
-    description,
-    themeColor,
-    instagramUrl,
-    twitterUrl,
-    facebookUrl
-  };
-
-  if (!themeColor) return null;
-  
-  const SelectedTemplate = TEMPLATES[template] || TEMPLATES.default;
-  
-  return <SelectedTemplate {...templateProps} />;
+  return (
+    <div className="contents" style={{ '--brand': config.themeColor }}>
+      <Template {...config} />
+    </div>
+  )
 }
 
 export default App

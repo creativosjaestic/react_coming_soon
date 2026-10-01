@@ -33,8 +33,9 @@ VITE_APP_SHOW_LOGO=true
 VITE_APP_URL_LOGO="/logo.webp"
 VITE_APP_SOCIAL_INSTAGRAM="https://instagram.com/example"
 VITE_APP_SOCIAL_FACEBOOK="https://facebook.com/example"
+VITE_APP_SOCIAL_TWITTER="https://x.com/example"
 VITE_APP_COLOR="rgb(236 72 153)"
-VITE_APP_TEMPLATE="modern" # options: default, minimal, modern
+VITE_APP_TEMPLATE="modern" # options: default, minimal, modern, beauty, parallax
 ```
 
 Upload your logo to the `public` folder if you plan to display it.
@@ -56,46 +57,41 @@ This creates optimized assets in the dist/ folder ready for deployment.
 
 ## Project Structure
 
-```pgsql
-├─ node_modules/
-├─ public/ -> static files and HTML entry point.
-│  ├─ index.html
-│  └─ logo.webp
-├─ src/ -> React source code.
-│  ├─ components/
-│  ├─ App.js
-│  └─ index.js
-├─ .gitignore
-├─ package.json -> project dependencies and scripts.
-├─ README.md
-└─ vite.config.js -> Vite configuration.
+```
+├─ public/ -> static files (logo.webp).
+├─ src/
+│  ├─ components/ -> shared pieces (Logo, ContactList, SocialLinks, Copyright).
+│  ├─ templates/ -> one file per template, plus index.js registry.
+│  ├─ App.jsx -> picks the template and sets the brand color.
+│  ├─ config.js -> reads and normalizes every VITE_APP_* variable.
+│  ├─ Icons.jsx
+│  └─ main.jsx
+├─ eslint.config.js
+├─ index.html
+└─ vite.config.js
 ```
 
-## Using Environment Variables
+## Configuration in code
 
-In App.js, environment variables are used to customize the landing page:
+`src/config.js` is the only place that reads `import.meta.env`. It converts `VITE_APP_SHOW_LOGO` to a boolean (the logo is exposed as `logoUrl`, only when enabled), falls back to a default color and groups the social links in a `socials` array. Each template receives that object as props.
 
-```javascript
-const title = import.meta.env.VITE_APP_TITLE;
-const showLogo = import.meta.env.VITE_APP_SHOW_LOGO;
-const srcLogo = import.meta.env.VITE_APP_URL_LOGO;
-const website = import.meta.env.VITE_APP_WEBSITE;
-// etc...
-```
-
-Select the template and pass the props to the component:
-
-```javascript
-const SelectedTemplate = TEMPLATES[template] || TEMPLATES.default;
-return <SelectedTemplate {...templateProps} />;
-```
+`VITE_APP_COLOR` is exposed to Tailwind as the `brand` color, so templates use classes such as `text-brand`, `bg-brand` and `bg-brand/10`. Any valid CSS color works.
 
 ## Available Templates
 - `default`
 - `minimal`
 - `modern`
+- `beauty`
+- `parallax`
 
 Each template supports full customization with logo, colors, description, and social links.
+
+To add a template, create it in `src/templates/` and register it in `src/templates/index.js`.
+
+## Linting
+```bash
+npm run lint
+```
 
 ## Contributing
 

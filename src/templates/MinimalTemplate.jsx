@@ -1,88 +1,54 @@
-import { PhoneIcon, MailIcon, LocationIcon, InstagramIcon, FacebookIcon, TwitterIcon } from '../Icons'
+import ContactList from '../components/ContactList'
+import Copyright from '../components/Copyright'
+import Logo from '../components/Logo'
+import SocialLinks from '../components/SocialLinks'
 
-const MinimalTemplate = ({ 
-  title, 
-  showLogo, 
-  srcLogo,
-  website, 
-  email, 
-  address, 
-  phone, 
-  description, 
-  themeColor, 
-  instagramUrl, 
-  twitterUrl,
-  facebookUrl 
+const MinimalTemplate = ({
+  title,
+  siteName,
+  website,
+  description,
+  email,
+  phone,
+  address,
+  logoUrl,
+  socials,
 }) => (
-  <main className="min-h-screen flex flex-col">
-    <div className="grow flex items-center justify-center p-4">
-      <div className="max-w-3xl mx-auto text-center">
-        {showLogo === 'true' && <img className="h-32 mx-auto mb-8" src={srcLogo} alt={website} />}
-        
-        <h1 className="text-5xl font-bold mb-4" style={{color: themeColor}}>
-          {title}
-        </h1>
-        
-        <p className="text-xl text-gray-600 mb-8">
+  <div className="flex min-h-screen flex-col">
+    <main className="flex grow items-center justify-center p-4">
+      <div className="mx-auto max-w-3xl text-center">
+        <Logo
+          logoUrl={logoUrl}
+          siteName={siteName}
+          className="mx-auto mb-8 h-20 w-auto sm:h-32"
+        />
+
+        <h1 className="mb-4 text-4xl font-bold text-brand sm:text-5xl">{title}</h1>
+
+        <p className="mx-auto mb-10 max-w-prose text-xl text-gray-600 text-pretty">
           {description}
         </p>
-        
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-          {email && (
-            <div className="p-4 border border-gray-200 rounded-lg hover:shadow-md transition-shadow">
-              <MailIcon className="w-8 h-8 mx-auto mb-2" style={{color: themeColor}} />
-              <a href={`mailto:${email}`} className="text-gray-700 hover:text-gray-900">{email}</a>
-            </div>
-          )}
-          
-          {phone && (
-            <div className="p-4 border border-gray-200 rounded-lg hover:shadow-md transition-shadow">
-              <PhoneIcon className="w-8 h-8 mx-auto mb-2" style={{color: themeColor}} />
-              <a href={`tel:${phone}`} className="text-gray-700 hover:text-gray-900">{phone}</a>
-            </div>
-          )}
-          
-          {address && (
-            <div className="p-4 border border-gray-200 rounded-lg hover:shadow-md transition-shadow">
-              <LocationIcon className="w-8 h-8 mx-auto mb-2" style={{color: themeColor}} />
-              <p className="text-gray-700">{address}</p>
-            </div>
-          )}
-        </div>
+
+        <ContactList
+          email={email}
+          phone={phone}
+          address={address}
+          className="flex flex-wrap justify-center gap-4"
+          itemClassName="flex grow basis-56 flex-col items-center gap-2 rounded-lg border border-gray-200 p-4 text-gray-700"
+          iconClassName="size-8 text-brand"
+        />
       </div>
-    </div>
-    
+    </main>
+
     <footer className="bg-gray-50 py-6">
-      <div className="max-w-7xl mx-auto px-4">
-        <div className="flex justify-center space-x-6 mb-4">
-          {instagramUrl && (
-            <a href={instagramUrl} target="_blank" className="text-gray-400 hover:text-gray-600">
-              <span className="sr-only">Instagram</span>
-              <InstagramIcon className="w-6 h-6 text-gray-800" />
-            </a>
-          )}
-          
-          {facebookUrl && (
-            <a href={facebookUrl} target="_blank" className="text-gray-400 hover:text-gray-600">
-              <span className="sr-only">Facebook</span>
-              <FacebookIcon className="w-6 h-6 text-gray-800" />
-            </a>
-          )}
-
-          {twitterUrl && (
-            <a href={twitterUrl} target="_blank" className="text-gray-400 hover:text-gray-600">
-              <span className="sr-only">Twitter</span>
-              <TwitterIcon className="w-6 h-6 text-gray-800" />
-            </a>
-          )}
-        </div>
-        
-        <p className="text-center text-gray-500">
-          © {new Date().getFullYear()} {website}. Todos los derechos reservados.
-        </p>
-      </div>
+      <SocialLinks
+        socials={socials}
+        className="mb-4 flex justify-center gap-2"
+        itemClassName="rounded-full text-gray-800 hover:bg-gray-200"
+      />
+      <Copyright name={website} className="text-center text-sm text-gray-500" />
     </footer>
-  </main>
-);
+  </div>
+)
 
-export default MinimalTemplate;
+export default MinimalTemplate
