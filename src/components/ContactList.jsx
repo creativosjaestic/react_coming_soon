@@ -1,6 +1,5 @@
 import { LocationIcon, MailIcon, PhoneIcon } from '../Icons'
-
-const toTelHref = (phone) => `tel:${phone.replace(/\s+/g, '')}`
+import { toTelHref } from '../phone'
 
 function ContactList({
   email,

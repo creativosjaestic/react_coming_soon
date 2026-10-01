@@ -35,7 +35,9 @@ VITE_APP_SOCIAL_INSTAGRAM="https://instagram.com/example"
 VITE_APP_SOCIAL_FACEBOOK="https://facebook.com/example"
 VITE_APP_SOCIAL_TWITTER="https://x.com/example"
 VITE_APP_COLOR="rgb(236 72 153)"
-VITE_APP_TEMPLATE="modern" # options: default, minimal, modern, beauty, parallax
+VITE_APP_SHOW_MAP=true # Google Maps iframe built from VITE_APP_ADDRESS (storefront template)
+# VITE_APP_MAP_EMBED_URL="https://www.google.com/maps/embed?pb=..." # optional exact embed URL
+VITE_APP_TEMPLATE="storefront" # options: default, minimal, modern, beauty, parallax, storefront
 ```
 
 Upload your logo to the `public` folder if you plan to display it.
@@ -83,6 +85,7 @@ This creates optimized assets in the dist/ folder ready for deployment.
 - `modern`
 - `beauty`
 - `parallax`
+- `storefront` (striped awning header + Google Maps embed)
 
 Each template supports full customization with logo, colors, description, and social links.
 
@@ -99,4 +102,4 @@ Contributions are welcome. Open an issue or PR to collaborate.
 
 ## License
 
-Open license. Check LICENSE for details.
+Open license. Check LICENSE for details.
