@@ -5,7 +5,7 @@ function App() {
   const Template = TEMPLATES[config.template] ?? TEMPLATES.default
 
   return (
-    <div className="contents" style={{ '--brand': config.themeColor }}>
+    <div className="contents" style={{ '--brand': config.themeColor, '--accent': config.accentColor }}>
       <Template {...config} />
     </div>
   )

@@ -1,9 +1,9 @@
 import BeautyTemplate from './BeautyTemplate';
+import CastleTemplate from './CastleTemplate';
 import DefaultTemplate from './DefaultTemplate';
 import MinimalTemplate from './MinimalTemplate';
 import ModernTemplate from './ModernTemplate';
 import ParallaxTemplate from './ParallaxTemplate';
-import StorefrontTemplate from './StorefrontTemplate';
 
 const TEMPLATES = {
   default: DefaultTemplate,
@@ -11,7 +11,7 @@ const TEMPLATES = {
   modern: ModernTemplate,
   beauty: BeautyTemplate,
   parallax: ParallaxTemplate,
-  storefront: StorefrontTemplate
+  castle: CastleTemplate
 };
 
 export default TEMPLATES;

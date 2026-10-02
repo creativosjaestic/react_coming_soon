@@ -30,14 +30,17 @@ VITE_APP_ADDRESS="Street Dignissim Magna 53, 08273, Spain"
 VITE_APP_TITLE="Coming Soon"
 VITE_APP_DESCRIPTION="Our website will launch soon. Join the waiting list to test the beta before it goes public."
 VITE_APP_SHOW_LOGO=true
-VITE_APP_URL_LOGO="/logo.webp"
+VITE_APP_URL_LOGO="/logo.png"
 VITE_APP_SOCIAL_INSTAGRAM="https://instagram.com/example"
 VITE_APP_SOCIAL_FACEBOOK="https://facebook.com/example"
 VITE_APP_SOCIAL_TWITTER="https://x.com/example"
 VITE_APP_COLOR="rgb(236 72 153)"
-VITE_APP_SHOW_MAP=true # Google Maps iframe built from VITE_APP_ADDRESS (storefront template)
+VITE_APP_ACCENT_COLOR="rgb(245 180 15)" # secondary color for details (castle template)
+VITE_APP_ACTIVITIES_URL="https://example.com" # optional external CTA button (castle template)
+VITE_APP_ACTIVITIES_LABEL="Descubre más actividades" # optional button text
+VITE_APP_SHOW_MAP=true # Google Maps iframe built from VITE_APP_ADDRESS (castle template)
 # VITE_APP_MAP_EMBED_URL="https://www.google.com/maps/embed?pb=..." # optional exact embed URL
-VITE_APP_TEMPLATE="storefront" # options: default, minimal, modern, beauty, parallax, storefront
+VITE_APP_TEMPLATE="castle" # options: default, minimal, modern, beauty, parallax, castle
 ```
 
 Upload your logo to the `public` folder if you plan to display it.
@@ -60,7 +63,7 @@ This creates optimized assets in the dist/ folder ready for deployment.
 ## Project Structure
 
 ```
-├─ public/ -> static files (logo.webp).
+├─ public/ -> static files (logo.png).
 ├─ src/
 │  ├─ components/ -> shared pieces (Logo, ContactList, SocialLinks, Copyright).
 │  ├─ templates/ -> one file per template, plus index.js registry.
@@ -77,7 +80,7 @@ This creates optimized assets in the dist/ folder ready for deployment.
 
 `src/config.js` is the only place that reads `import.meta.env`. It converts `VITE_APP_SHOW_LOGO` to a boolean (the logo is exposed as `logoUrl`, only when enabled), falls back to a default color and groups the social links in a `socials` array. Each template receives that object as props.
 
-`VITE_APP_COLOR` is exposed to Tailwind as the `brand` color, so templates use classes such as `text-brand`, `bg-brand` and `bg-brand/10`. Any valid CSS color works.
+`VITE_APP_COLOR` is exposed to Tailwind as the `brand` color and `VITE_APP_ACCENT_COLOR` as `accent`, so templates use classes such as `text-brand`, `bg-brand/10` and `bg-accent`. Any valid CSS color works.
 
 ## Available Templates
 - `default`
@@ -85,7 +88,7 @@ This creates optimized assets in the dist/ folder ready for deployment.
 - `modern`
 - `beauty`
 - `parallax`
-- `storefront` (striped awning header + Google Maps embed)
+- `castle` (crenellated battlement header, Google Maps embed, serif headings)
 
 Each template supports full customization with logo, colors, description, and social links.
 
@@ -102,4 +105,4 @@ Contributions are welcome. Open an issue or PR to collaborate.
 
 ## License
 
-Open license. Check LICENSE for details.
+Open license. Check LICENSE for details.

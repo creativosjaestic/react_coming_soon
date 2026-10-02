@@ -3,6 +3,7 @@ import { FacebookIcon, InstagramIcon, TwitterIcon } from './Icons'
 const env = import.meta.env
 
 const DEFAULT_THEME_COLOR = 'rgb(236 72 153)'
+const DEFAULT_ACCENT_COLOR = 'rgb(245 180 15)'
 
 const SOCIAL_NETWORKS = [
   { name: 'Instagram', url: env.VITE_APP_SOCIAL_INSTAGRAM, Icon: InstagramIcon },
@@ -30,7 +31,10 @@ const config = {
   directionsUrl:
     address && `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(address)}`,
   themeColor: env.VITE_APP_COLOR || DEFAULT_THEME_COLOR,
+  accentColor: env.VITE_APP_ACCENT_COLOR || DEFAULT_ACCENT_COLOR,
   logoUrl: env.VITE_APP_SHOW_LOGO === 'true' ? env.VITE_APP_URL_LOGO : undefined,
+  activitiesUrl: env.VITE_APP_ACTIVITIES_URL,
+  activitiesLabel: env.VITE_APP_ACTIVITIES_LABEL || 'Descubre más actividades',
   socials: SOCIAL_NETWORKS.filter(({ url }) => Boolean(url)),
 }
 
