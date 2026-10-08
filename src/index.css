@@ -5,6 +5,7 @@
   --color-brand: var(--brand);
   --color-accent: var(--accent);
   --font-display: 'Fraunces Variable', ui-serif, Georgia, serif;
+  --font-sans: 'Outfit Variable', ui-sans-serif, system-ui, sans-serif;
 }
 
 @theme {
@@ -76,5 +77,145 @@
   }
   to {
     transform: scaleY(1);
+  }
+}
+
+/*
+ * Pool (PoolTemplate): palette sampled from the PRS logo. `--brand` is the logo navy and
+ * `--accent` the sun; the in-between blues are fixed so the water always reads as water.
+ */
+@theme {
+  --color-deck: #f7f7f8;
+  --color-royal: #1558c0;
+  --color-aqua: #25aeea;
+  --color-foam: #bfeafc;
+}
+
+@layer components {
+  /* Pool deck: faint tile grid. */
+  .pool-tiles {
+    background-color: var(--color-deck);
+    background-image:
+      linear-gradient(to right, color-mix(in srgb, var(--brand) 7%, transparent) 1px, transparent 1px),
+      linear-gradient(to bottom, color-mix(in srgb, var(--brand) 7%, transparent) 1px, transparent 1px);
+    background-size: 3.5rem 3.5rem;
+  }
+
+  .pool-water {
+    background:
+      radial-gradient(60rem 30rem at 85% 0%, color-mix(in srgb, var(--color-aqua) 55%, transparent), transparent 70%),
+      linear-gradient(180deg, #1c74d4 0%, var(--color-royal) 30%, var(--brand) 100%);
+  }
+
+  .pool-caustics {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+    mask-image: linear-gradient(to bottom, #000 30%, transparent 95%);
+  }
+
+  .pool-caustics-a,
+  .pool-caustics-b {
+    position: absolute;
+    top: -10%;
+    left: -10%;
+    width: 130%;
+    height: 130%;
+  }
+
+  .pool-caustics-a {
+    opacity: 0.4;
+    animation: caustic-drift-a 38s ease-in-out infinite alternate;
+  }
+
+  .pool-caustics-b {
+    opacity: 0.28;
+    animation: caustic-drift-b 52s ease-in-out infinite alternate;
+  }
+
+  /* Waterline: deck-colored wave over a paler foam wave, drifting at different speeds. */
+  .pool-waterline {
+    --wave: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='48' viewBox='0 0 1200 48'%3E%3Cpath d='M0 24 C200 4 400 4 600 24 S1000 44 1200 24 V0 H0 Z' fill='%23f7f7f8'/%3E%3C/svg%3E");
+    --foam: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1700' height='48' viewBox='0 0 1700 48'%3E%3Cpath d='M0 30 C283 10 567 10 850 30 S1417 50 1700 30 V0 H0 Z' fill='%23bfeafc' fill-opacity='.55'/%3E%3C/svg%3E");
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 3rem;
+    background-image: var(--wave), var(--foam);
+    background-repeat: repeat-x;
+    background-size: 1200px 48px, 1700px 48px;
+    animation: waterline-drift 40s linear infinite;
+  }
+
+  /* Lane rope straddling the water's edge. */
+  .pool-rope {
+    --buoy: 3rem;
+    position: absolute;
+    inset: auto 0 0 0;
+    height: 1.25rem;
+    transform: translateY(50%);
+    background:
+      linear-gradient(to bottom, rgb(255 255 255 / 0.55), transparent 45%, rgb(10 42 107 / 0.35)),
+      repeating-linear-gradient(
+        90deg,
+        #fff 0 calc(var(--buoy) - 2px),
+        var(--brand) calc(var(--buoy) - 2px) var(--buoy),
+        var(--color-aqua) var(--buoy) calc(var(--buoy) * 2 - 2px),
+        var(--brand) calc(var(--buoy) * 2 - 2px) calc(var(--buoy) * 2),
+        var(--accent) calc(var(--buoy) * 2) calc(var(--buoy) * 3 - 2px),
+        var(--brand) calc(var(--buoy) * 3 - 2px) calc(var(--buoy) * 3)
+      );
+    box-shadow: 0 6px 10px -4px rgb(10 42 107 / 0.35);
+  }
+
+  /* Pool coping: thick white edge with a thin blue lip, holding the map like a pool holds water. */
+  .pool-coping {
+    padding: 0.75rem;
+    border-radius: 2rem;
+    background: #fff;
+    box-shadow:
+      0 0 0 2px var(--color-aqua),
+      0 24px 40px -20px color-mix(in srgb, var(--brand) 55%, transparent);
+  }
+
+  @media (max-width: 640px) {
+    .pool-rope {
+      --buoy: 2.25rem;
+    }
+
+    .pool-tiles {
+      background-size: 2.75rem 2.75rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .pool-caustics-a,
+    .pool-caustics-b,
+    .pool-waterline {
+      animation: none;
+    }
+  }
+}
+
+@keyframes caustic-drift-a {
+  to {
+    transform: translate(-8%, -6%);
+  }
+}
+
+@keyframes caustic-drift-b {
+  from {
+    transform: translate(-7%, -8%);
+  }
+  to {
+    transform: translate(2%, 0);
+  }
+}
+
+@keyframes waterline-drift {
+  to {
+    background-position:
+      1200px 0,
+      -1700px 0;
   }
 }
